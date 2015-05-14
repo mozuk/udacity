@@ -1,0 +1,35 @@
+Fresh Tomatoes movie trailer website demo project
+
+Overview:
+This package contains 3 python scripts.
+
+media.py - contains definitions of the Movie class object used to create the html
+    definitions within -
+    class Movie
+
+entertainment_center.py - contains code for creating a sample website with 3 movies
+
+    definitions within:
+    function generate_movies_html
+        creates 3 sample movies via instances of class Movie and passed them as a list
+        to open_movies_page in fresh_tomatoes.py
+
+    can be used as standalone script
+
+fresh_tomatoes.py - contains the code for creating a website based on a list of movies
+
+    definitions within:
+    function create_movie_tiles_content
+        creates html for displaying of movie trailers based on list movie class objects
+    function open_movies_page
+        passes a list of movie class objects to create_movie_tiles_content, renders the generated html to
+        fresh_tomatoes.html in the current directory, and opens it in the browser
+
+Running the sample project:
+    Method 1 - from the python interpreter import generate_movies_html from entertainment_center and run it.
+    Method 2 - run entertainment_center.py directly.
+
+Compatibility:
+    Tested with following versions of Python
+    1. python 3.4
+    2. python 2.7
