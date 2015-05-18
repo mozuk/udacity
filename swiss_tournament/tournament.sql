@@ -6,10 +6,10 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
-DROP DATABASE IF EXISTS "swiss_tournament_db";
+DROP DATABASE IF EXISTS "tournament";
 
-CREATE DATABASE "swiss_tournament_db";
-\c "swiss_tournament_db";
+CREATE DATABASE "tournament";
+\c "tournament";
 
 -- tables
 -- Table: matches

@@ -1,12 +1,7 @@
 Swiss tournament backend database psql schema and python driver
 
 Overview:
-This package contains 3 python scripts and 1 sql script
-
-pairing.py - contains definitions of the PlayerStats class object used to sort players based on
-    winning percentages
-    definitions within -
-    class PlayerStats
+This package contains 2 python scripts and 1 sql script
 
 tournament.py - contains code for connecting and interacting with the psql database
 
@@ -18,7 +13,7 @@ tournament_test.py - contains code for testing the functions in tournament.py
     definitions within:
     test functions that run when the script is called directly
 
-tournament.sql - contains all psql defintions for the backend database
+tournament.sql - contains all psql definitions for the backend database
 
     definitions within:
     database, tables, constraints and views needed for running tournament.py correctly

@@ -1,24 +1,24 @@
 #!/usr/bin/env python
-# 
+#
 # tournament.py -- implementation of a Swiss-system tournament
 #
 
 import psycopg2
-import heapq # Needed for min_heap sorting of players by winning percentage
-from pairing import PlayerStats
 
 
 def connect():
     """Connect to the PostgresSQL database.  Returns a database connection."""
-    return psycopg2.connect("dbname=swiss_tournament_db")
+    return psycopg2.connect("dbname=tournament")
 
 
 # noinspection PyPep8Naming
 def createTournament(name, info):
     db = connect()
     cursor = db.cursor()
-    cursor.execute("insert into tournaments (name,information) values(%(name)s,%(info)s)",
-                   {'name': name, 'info': info})
+    cursor.execute("""
+                   insert into tournaments (name,information)
+                   values(%(name)s,%(info)s)
+                   """, {'name': name, 'info': info})
     db.commit()
     db.close()
 
@@ -67,10 +67,10 @@ def countPlayers():
 # noinspection PyPep8Naming
 def registerPlayer(name):
     """Adds a player to the tournament database.
-  
+
     The database assigns a unique serial id number for the player.  (This
     should be handled by your SQL database schema, not in your Python code.)
-  
+
     Args:
       name: the player's full name (need not be unique).
     """
@@ -82,8 +82,10 @@ def registerPlayer(name):
     tournament_id = cursor.fetchone()[0]
 
     # Register player on DB
-    cursor.execute("insert into players (tournament_id,name) values( %(id)s, %(name)s)",
-                   {'id': tournament_id, 'name': name})
+    cursor.execute("""
+                   insert into players (tournament_id,name)
+                   values( %(id)s, %(name)s)
+                   """, {'id': tournament_id, 'name': name})
     db.commit()
     db.close()
 
@@ -92,8 +94,8 @@ def registerPlayer(name):
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
 
-    The first entry in the list should be the player in first place, or a player
-    tied for first place if there is currently a tie.
+    The first entry in the list should be the player in first place,
+    or a player tied for first place if there is currently a tie.
 
     Returns:
       A list of tuples, each of which contains (id, name, wins, matches):
@@ -107,9 +109,11 @@ def playerStandings():
     # Get total matches count and won count from predefined views
     cursor.execute(
         """
-        select played_matches.id, played_matches.name, won_matches.win_count, played_matches.total_count
+        select played_matches.id, played_matches.name,
+               won_matches.win_count, played_matches.total_count
         from played_matches, won_matches
         where played_matches.id = won_matches.id
+        order by won_matches.win_count
         """
     )
     standings = cursor.fetchall()
@@ -133,9 +137,11 @@ def reportMatch(winner, loser):
     tournament_id = cursor.fetchone()[0]
 
     # Store the match data now
-    cursor.execute("""insert into matches (tournament_id, winner_id, loser_id)
-                   values( %(tournament_id)s, %(winner_id)s, %(loser_id)s)""",
-                   {'winner_id': winner, 'loser_id': loser, 'tournament_id': tournament_id})
+    cursor.execute("""
+                   insert into matches (tournament_id, winner_id, loser_id)
+                   values( %(tournament_id)s, %(winner_id)s, %(loser_id)s)
+                   """, {'winner_id': winner, 'loser_id': loser,
+                         'tournament_id': tournament_id})
     db.commit()
     db.close()
 
@@ -143,12 +149,12 @@ def reportMatch(winner, loser):
 # noinspection PyPep8Naming
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
-  
+
     Assuming that there are an even number of players registered, each player
     appears exactly once in the pairing.py.  Each player is paired with another
     player with an equal or nearly-equal win record, that is, a player adjacent
     to him or her in the standings.
-  
+
     Returns:
       A list of tuples, each of which contains (id1, name1, id2, name2)
         id1: the first player's unique id
@@ -156,23 +162,14 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-    players = []
     pairings = []
     standings = playerStandings()
 
-    # let's sort players by win percentage
-    for player_id, name, wins, matches in standings:
-        players.append(PlayerStats(wins, matches, player_id, name))
-
-    # make a min heap to sort the players by ranking as best as possible
-    heapq.heapify(players)
-
-    # loop through the sorted pairings and push each 2 players to their own match
-    for index in range(0, len(players), 2):
-        pairings.append((players[index].player_id,
-                         players[index].player_name,
-                         players[index + 1].player_id,
-                         players[index + 1].player_name,
-                         ))
+    # loop through the sorted standings and push each 2 adjacent
+    # players to their own match
+    for index in range(0, len(standings), 2):
+        player_id, name, _, _ = standings[index]
+        oponnent_id, oponnent_name, _, _ = standings[index + 1]
+        pairings.append((player_id, name, oponnent_id, oponnent_name))
 
     return pairings
