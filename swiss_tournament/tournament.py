@@ -113,7 +113,7 @@ def playerStandings():
                won_matches.win_count, played_matches.total_count
         from played_matches, won_matches
         where played_matches.id = won_matches.id
-        order by won_matches.win_count
+        order by won_matches.win_count desc
         """
     )
     standings = cursor.fetchall()
