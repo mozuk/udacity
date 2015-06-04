@@ -1,0 +1,23 @@
+{% extends "categories.html" %}
+{% block rside_header %}
+<h1>{{item.name}}</h1>
+{% endblock %}
+{%block rside %}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h2>Description</h2>
+
+        <div class="catalog-item">
+            <p>{{item.description}}</p>
+        </div>
+
+        <h2>Image</h2>
+
+        <div class="catalog-item">
+            {{ item.picture.find_thumbnail(width=300) }}
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+{% endblock %}

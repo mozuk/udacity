@@ -1,0 +1,188 @@
+* {
+	font-family: "Helvetica Neue Bold", Roboto, Helvetica, Arial, sans-serif;
+	font-weight: 700;
+
+}
+
+body {
+    background: #0B8BD8;
+}
+
+.row, .container {
+    background: #fff;
+    padding-bottom: 10px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h1 {
+	font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	color: #51453B;
+	line-height: 30px;
+	font-weight: 800;
+}
+
+h2 {
+	font-size: 24px;
+	color: #42C3C9;
+	line-height: 29px;
+}
+
+h3 {
+	font-size: 18px;
+	color: #4A4A4A;
+	line-height: 23px;
+}
+
+ p {
+ 	font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
+ 	font-size: 16px;
+ 	color: #7B7573;
+ 	line-height: 24px;
+ 	font-weight: 400;
+ }
+
+ strong {
+ 	font-size: 16px;
+ 	color: #00000;
+ 	line-height: 24px;
+ }
+
+ a {
+ 	font-size: 14px;
+ 	color: #000;
+ 	line-height: 17px;
+ }
+
+.padding-top {
+	padding-top: 30px;
+}
+
+.padding-bottom {
+	padding-bottom: 30px;
+}
+
+.margin-right {
+	margin-right: 30px;
+}
+
+.padding-none {
+	padding: 0;
+}
+
+.btn {
+	padding: 10px;
+	margin: 0;
+}
+
+.btn:hover {
+}
+
+.btn.delete {
+	border-color: #aaaaaa;
+	color: #aaaaaa;
+}
+
+.btn.delete:hover {
+	border-color: #aaaaaa;
+	color: red;
+}
+
+.glyphicon {
+	margin-right: 10px;
+}
+
+.top-catalog {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background: #FFD200;
+	border-color: #aaa;
+	border: 2px;
+}
+
+.top-catalog p {
+	margin-bottom: 0;
+	line-height: 16px;
+}
+
+.col1, .col2{
+	margin-top: 20px;
+	margin-bottom: 10px;
+
+}
+
+.top-catalog a {
+	margin-bottom: 0;
+	line-height: 16px;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.divider {
+	height: 5px;
+}
+
+.divider.blue {
+	background-color: #0B09B2;
+}
+
+.divider.green {
+	background-color: #9FB80A;
+}
+
+ .restaurant-list {
+ 	background-color: #F0F0F0;
+ 	padding: 20px;
+u }
+
+ .restaurant-list:hover {
+ 	background-color: #e1e17f;
+ 	padding: 20px;
+}
+.catalog-item {
+	background: #F0F0F0;
+	padding: 20px;
+	margin: 20px;
+	margin-left: -20px;
+}
+
+.creator {
+	padding-right: 20px;
+	margin-top: -20px;
+	text-align: right;
+	float:right;
+}
+#signInButton{
+	margin: 20px;
+
+}
+.creator img {
+	width: 100px;
+	border-radius: 50%;
+}
+
+.creator figcaption {
+	font-size: 14px;
+	color: #7B7573;
+	font-weight: 400;
+	margin-top: -20px;
+}
+.flash {
+	background-color: #98FB98;
+	text-decoration: none;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+
+}
+
+.row main {
+    background: #FFFAE4
+}

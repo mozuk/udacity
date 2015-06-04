@@ -1,0 +1,7 @@
+{% block header %}
+{% if username %}
+{% include "logout_header.html" %}
+{% else %}
+{% include "login_header.html" %}
+{% endif %}
+{% endblock %}

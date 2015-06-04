@@ -1,0 +1,26 @@
+{% extends "categories.html" %}
+{% block rside_header %}
+<h1>{{ category.name }}</h1>
+{% endblock %}
+{%block rside %}
+	{% if items !=[] %}
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<h2>Items</h2>
+					{% for item in items %}
+							 <a href="{{url_for('single_item', category_id = item.category.id, item_id= item.id, categories=categories)}}">
+
+							<div class="catalog-item">
+								<h3>{{ item.name }}</h3>
+								<p>{{ item.description }}</p>
+								<p>{{ item.picture.find_thumbnail(width=300) }}</p>
+							</div>
+
+							 </a>
+					{% endfor %}
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	{% endif %}
+{% endblock %}

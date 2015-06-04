@@ -1,0 +1,80 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+
+<div class="row divider blue">
+    <div class="col-md-12"></div>
+</div>
+
+
+<div class='flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li><strong> {{ message }} </strong></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<div class="col-md-4 col1">
+    <div class="row main">
+        <div class="col-md-1"></div>
+        <div class="col-md-11 padding-none">
+            <h1>Categories</h1>
+        </div>
+    </div>
+    {% for category in categories %}
+    <a href="{{url_for('show_items', category_id = category.id)}}">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 item-list">
+                <h3>{{category.name}}</h3>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </a>
+    {% endfor %}
+    <div class="row padding-top padding-bottom">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 padding-none">
+            {% if username %}
+            <a href="{{url_for('new_category')}}">
+                <button class="btn btn-default" id="new-category">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    Add Category
+                </button>
+            </a>
+            {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+<div class="col-md-8 col2">
+    <div class="row main">
+        <div class="col-md-1"></div>
+        <div class="col-md-11 padding-none">
+            {% block rside_header %}
+            <h1>Recent Items</h1>
+            {% endblock %}
+        </div>
+    </div>
+    {% block rside %}
+    {% for item in items %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 item-list">
+            <a href="{{url_for('single_item', category_id = item.category.id, item_id= item.id)}}">
+                <h3>{{item.name}} ({{ item.category.name }} category) </h3>
+            </a>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    {% endfor %}
+    {% endblock %}
+</div>
+{% endblock %}
