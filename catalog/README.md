@@ -65,6 +65,12 @@ initial app deployment for the app to work.
     python database_setup.py
 ```
 
+Image storage
+-------------
+
+By default images are stored on local disk as defined by `UPLOADED_PHOTOS_DEST = '/app/app/static/images'` in database_setup.py.
+To change the location to a different place if the app is ran in a different disk lcoation, change that configuration variable.
+
 Catalog APIs
 ------------
 

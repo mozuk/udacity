@@ -119,10 +119,11 @@ def delete_category(category_id):
             Please create your own category in order to edit.');
             } </script><body onload='myFunction()''>"""
     if request.method == 'POST':
-        db_session.delete(delete_me)
-        flash('%s Successfully Deleted' % delete_me.name)
-        db_session.commit()
-        return redirect(url_for('show_categories',
+        with store_context(local_storage):
+            db_session.delete(delete_me)
+            flash('%s Successfully Deleted' % delete_me.name)
+            db_session.commit()
+            return redirect(url_for('show_categories',
                                 category_id=category_id,
                                 username=login_session["username"],
                                 categories=db_session.

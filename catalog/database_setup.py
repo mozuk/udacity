@@ -36,6 +36,7 @@ class Category(Base):
     name = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    items = relationship("CategoryItem", cascade="all, delete, delete-orphan")
     added = Column(DateTime, default=func.now())
 
     @property
