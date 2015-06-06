@@ -73,7 +73,8 @@ def edit_item(category_id, item_id):
         return redirect(url_for('show_items',
                                 category_id=category_id))
     else:
-        all_categories = db_session.query(Category).order_by(asc(Category.name))
+        all_categories = db_session.query(Category).\
+                                        order_by(asc(Category.name))
         return render_template('edit_item.html',
                                category_id=category_id,
                                item_id=item_id,

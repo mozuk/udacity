@@ -70,15 +70,15 @@ def new_category():
         flash('New Category %s Successfully Created by %s' %
               (new.name, user.name))
         db_session.commit()
+        categories = db_session.query(Category).order_by(asc(Category.name))
         return redirect(url_for('show_categories',
                                 username=login_session["username"],
-                                categories=db_session.
-                                    query(Category).order_by(asc(Category.name))))
+                                categories=categories))
     else:
+        categories = db_session.query(Category).order_by(asc(Category.name))
         return render_template('new_category.html',
                                username=login_session["username"],
-                               categories=db_session.
-                                    query(Category).order_by(asc(Category.name)))
+                               categories=categories)
 
 
 # Edit a category
@@ -94,16 +94,17 @@ def edit_category(category_id):
         if request.form['name']:
             edited.name = request.form['name']
             flash('%s Category Successfully Edited ' % edited.name)
+            categories = db_session.query(Category)\
+                .order_by(asc(Category.name))
             return redirect(url_for('show_categories',
                                     username=login_session["username"],
-                                    categories=db_session.
-                                    query(Category).order_by(asc(Category.name))))
+                                    categories=categories))
     else:
+        categories = db_session.query(Category).order_by(asc(Category.name))
         return render_template('edit_category.html',
                                category=edited,
                                username=login_session["username"],
-                               categories=db_session.
-                                    query(Category).order_by(asc(Category.name)))
+                               categories=categories)
 
 
 # Delete a category
@@ -124,16 +125,16 @@ def delete_category(category_id):
             flash('%s Successfully Deleted' % delete_me.name)
             db_session.commit()
             return redirect(url_for('show_categories',
-                                category_id=category_id,
-                                username=login_session["username"],
-                                categories=db_session.
-                                    query(Category).order_by(asc(Category.name))))
+                            category_id=category_id,
+                            username=login_session["username"],
+                            categories=db_session.
+                            query(Category).order_by(asc(Category.name))))
     else:
         return render_template('delete_category.html',
                                category=delete_me,
                                username=login_session["username"],
                                categories=db_session.
-                                    query(Category).order_by(asc(Category.name)))
+                               query(Category).order_by(asc(Category.name)))
 
 
 # Show a category items catalog
@@ -155,14 +156,16 @@ def show_items(category_id):
                                    category=category,
                                    username=username,
                                    categories=db_session.
-                                    query(Category).order_by(asc(Category.name)))
+                                   query(Category).
+                                   order_by(asc(Category.name)))
         else:
             return render_template('items.html',
                                    items=items,
                                    category=category,
                                    username=username,
                                    categories=db_session.
-                                    query(Category).order_by(asc(Category.name)))
+                                   query(Category).
+                                   order_by(asc(Category.name)))
 
 
 # JSON APIs to view items Information
