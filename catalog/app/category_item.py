@@ -116,10 +116,14 @@ def single_item(category_id, item_id):
     # confirm item exists
     item = db_session.query(CategoryItem).filter_by(id=item_id).one()
     category = db_session.query(Category).filter_by(id=category_id).one()
+    if 'username' in login_session:
+        username = login_session["username"]
+    else:
+        username = None
     with store_context(local_storage):
         return render_template('single_item.html',
                                category_id=category_id,
                                item=item,
                                categories=db_session.
                                query(Category).order_by(asc(Category.name)),
-                               username=login_session['username'])
+                               username=username)

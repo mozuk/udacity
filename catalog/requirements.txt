@@ -1,0 +1,9 @@
+SQLAlchemy==1.0.4
+Flask==0.10.1
+SQLAlchemy-ImageAttach==0.9.0
+psycopg2==2.4.5
+oauth2client==1.4.11
+requests==2.2.1
+httplib2==0.9.1
+Flask-Heroku==0.1.9
+dicttoxml==1.6.6

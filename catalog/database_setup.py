@@ -6,7 +6,7 @@ from sqlalchemy_imageattach.entity import Image, \
     image_attachment, store_context
 from sqlalchemy_imageattach.stores.fs import FileSystemStore
 
-UPLOADED_PHOTOS_DEST = '/vagrant/catalog_new/app/static/images'
+UPLOADED_PHOTOS_DEST = '/app/app/static/images'
 local_storage = FileSystemStore(path=UPLOADED_PHOTOS_DEST,
                                 base_url='/static/images')
 
@@ -79,6 +79,7 @@ class ItemPicture(Base, Image):
     item_id = Column(Integer, ForeignKey('category_item.id'), primary_key=True)
     item = relationship(CategoryItem)
 
-engine = create_engine('postgresql://vagrant:vagrant@localhost/test')
+import os
+engine = create_engine(os.getenv("DATABASE_URL"))
 
 Base.metadata.create_all(engine)
