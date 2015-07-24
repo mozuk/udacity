@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from datetime import datetime
+from datetime import datetime, date
 
 import endpoints
 from protorpc import message_types
@@ -290,7 +290,7 @@ class ConferenceApi(remote.Service):
                       path='conference/{websafeConferenceKey}/session',
                       http_method='POST', name='createSession')
     def createSession(self, request):
-        """Create new conference."""
+        """Create new session."""
         return self._createSessionObject(request)
 
     @endpoints.method(WISHLIST_ADD_POST_REQUEST, BooleanMessage,
@@ -427,7 +427,7 @@ class ConferenceApi(remote.Service):
         )
 
     @endpoints.method(SESSION_GET_BY_TYPE, SessionForms,
-                      path='conference/sessions/'
+                      path='conference/sessions/by_type/'
                            '{websafeConferenceKey}/{typeOfSession}',
                       http_method='GET', name='getConferenceSessionByType')
     def getConferenceSessionByType(self, request):
@@ -442,7 +442,7 @@ class ConferenceApi(remote.Service):
         )
 
     @endpoints.method(SESSION_GET_BY_HIGHLIGHT, SessionForms,
-                      path='conference/sessions/'
+                      path='conference/sessions/by_highlights/'
                            '{websafeConferenceKey}/{topicOfSession}',
                       http_method='GET',
                       name='getConferenceSessionByHighlight')
@@ -497,9 +497,7 @@ class ConferenceApi(remote.Service):
         conf_keys = [ndb.Key(urlsafe=wsck)
                      for wsck in prof.conferenceKeysToAttend]
 
-        input_date = datetime.date(request.year,
-                                   request.month,
-                                   request.day)
+        input_date = date(request.year, request.month, request.day)
 
         # loop through all sessions in all registered for conferences
         # to get list of upcoming sessions for a given date
@@ -709,7 +707,7 @@ class ConferenceApi(remote.Service):
         if sessions.count() > 1:
             announcement = 'Current featured speaker is %s, %s %s' % (
                 speaker.displayName,
-                'giving the following conferences:\n',
+                'giving the following talks:\n',
                 '\n '.join(session.name for session in sessions))
             memcache.set(MEMCACHE_FEATURED_KEY, announcement)
 
