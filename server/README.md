@@ -59,47 +59,47 @@ a2enmod #to enable mod_wsgi via prompt
 ```
 9. Installed and configured PostgreSQL
     a. Installation
-```bash
-apt-get install postgresql
-service postgresql start
-```
+    ```bash
+    apt-get install postgresql
+    service postgresql start
+    ```
     b. Disabled remote connections - this is disabled by default
     c. Created a new user named catalog_admin that has limited permissions to the catalog application database
     Note: The use is named catalog_admin to avoid confusion with the name of the project, which was catalog from before
-```bash
-su - postgres
-createuser -dRS catalog_admin
-su catalog_admin -c 'createdb'
-passwd catalog_admin
-# restrict user to catalog_live database only
-vim /etc/postgresql/9.3/main/pg_hba.conf
-service postgresql restart
-service apache2 restart
-```
+    ```bash
+    su - postgres
+    createuser -dRS catalog_admin
+    su catalog_admin -c 'createdb'
+    passwd catalog_admin
+    # restrict user to catalog_live database only
+    vim /etc/postgresql/9.3/main/pg_hba.conf
+    service postgresql restart
+    service apache2 restart
+    ```
 10. Installed git, cloned and setup my Catalog App project (from your GitHub repository from earlier in the Nanodegree program) 
 so that it functions correctly when visiting your server’s IP address in a browser.
     a. Installation and repository cloning
-```bash
-apt-get install git
-git clone https://github.com/mozuk/udacity
-```
+    ```bash
+    apt-get install git
+    git clone https://github.com/mozuk/udacity
+    ```
     b. Installation of dependencies for the catalog application
-```bash
-apt-get install pip
-apt-get install python-dev # needed for some packages
-pip install -r ./udacity/catalog/requirements.txt
-```
+    ```bash
+    apt-get install pip
+    apt-get install python-dev # needed for some packages
+    pip install -r ./udacity/catalog/requirements.txt
+    ```
     c. Configuration changes to make it run with apache2
-```bash
-# inserted enviromental variables needed into apache global vars
-vim /etc/apache2/envvars
-# created wsgi control script to launch application within apache2 
-vim /home/catalog_admin/udacity/catalog/catalog.wsgi
-# created site configuration for apache2 to run the wsgi script
-vim /etc/apache2/sites-available/catalog.conf
-# enabled site on apache2 instance
-a2ensite
-```
+    ```bash
+    # inserted enviromental variables needed into apache global vars
+    vim /etc/apache2/envvars
+    # created wsgi control script to launch application within apache2 
+    vim /home/catalog_admin/udacity/catalog/catalog.wsgi
+    # created site configuration for apache2 to run the wsgi script
+    vim /etc/apache2/sites-available/catalog.conf
+    # enabled site on apache2 instance
+    a2ensite
+    ```
 
 ### Resources used
 
